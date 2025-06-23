@@ -1,0 +1,78 @@
+{
+    "navbar": {
+        "items": {
+            "home": "Home",
+            "about": "About"
+        },
+        "en": "English",
+        "ua": "Ukrainian"
+    },
+    "header": {
+        "title": "Flight Tracker",
+        "search_bar": {
+            "placeholder": "Ask me what are you looking for...",
+            "actions": {
+                "search": "Search"
+            }
+        }
+    },
+    "pages": {
+        "home": {
+            "filter": {
+                "title": "Filter",
+                "airports": {
+                    "title": "Airports"
+                },
+                "airlines": {
+                    "title": "Airlines"
+                },
+                "arrival_date": {
+                    "title": "Arrival Date"
+                },
+                "departure_date": {
+                    "title": "Departure Date"
+                },
+                "status": {
+                    "title": "Status"
+                },
+                "passengers": {
+                    "title": "Passengers",
+                    "range": "Selected: {{from}} - {{to}}"
+                },
+                "actions": {
+                    "submit": "Submit"
+                }
+            }
+        },
+        "not_found": {
+            "title": "404 - Page Not Found",
+            "actions": {
+                "back": "Back to Home"
+            }
+        }
+    },
+    "components": {
+        "flight_tracking_card": {
+            "departure": "Departure",
+            "arrival": "Arrival",
+            "duration": "Flight duration",
+            "learn_more": "Learn More",
+            "passengers": "Passengers",
+            "arrival_date": "Arrival date",
+            "departure_date": "Departure date",
+            "status": {
+                "ON_TIME": "On time",
+                "DELAYED": "Delayed",
+                "CANCELLED": "Cancelled",
+                "ARRIVED": "Arrived"
+            }
+        }
+    },
+    "units": {
+        "duration": {
+            "time": "{{hours}}h {{minutes}} min",
+            "hours": "{{hours}}h",
+            "minutes": "{{minutes}} min"
+        }
+    }
+}

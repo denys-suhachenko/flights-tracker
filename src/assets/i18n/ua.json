@@ -1,0 +1,78 @@
+{
+    "navbar": {
+        "items": {
+            "home": "Головна",
+            "about": "Про нас"
+        },
+        "en": "Англійська",
+        "ua": "Українська"
+    },
+    "header": {
+        "title": "Відстеження рейсів",
+        "search_bar": {
+            "placeholder": "Запитай мене що ти шукаєш...",
+            "actions": {
+                "search": "Пошук"
+            }
+        }
+    },
+    "pages": {
+        "home": {
+            "filter": {
+                "title": "Фільтр",
+                "airports": {
+                    "title": "Аеропорти"
+                },
+                "airlines": {
+                    "title": "Авіалінії"
+                },
+                "arrival_date": {
+                    "title": "Дата прибуття"
+                },
+                "departure_date": {
+                    "title": "Дата відправлення"
+                },
+                "status": {
+                    "title": "Статус"
+                },
+                "passengers": {
+                    "title": "Кількість пасажирів",
+                    "range": "Обрано: {{from}} - {{to}}"
+                },
+                "actions": {
+                    "submit": "Застосувати"
+                }
+            }
+        },
+        "not_found": {
+            "title": "404 - Сторінку не знайдено",
+            "actions": {
+                "back": "На головну"
+            }
+        }
+    },
+    "components": {
+        "flight_tracking_card": {
+            "departure": "Відправлення",
+            "arrival": "Прибуття",
+            "duration": "Тривалість польоту",
+            "learn_more": "Дізнатися більше",
+            "passengers": "Кількість пасажирів",
+            "arrival_date": "Дата прибуття",
+            "departure_date": "Дата відправлення",
+            "status": {
+                "ON_TIME": "В польоті",
+                "DELAYED": "Затримка",
+                "CANCELLED": "Скасовано",
+                "ARRIVED": "Прибув"
+            }
+        }
+    },
+    "units": {
+        "duration": {
+            "time": "{{hours}} год {{minutes}} хв",
+            "hours": "{{hours}} год",
+            "minutes": "{{minutes}} хв"
+        }
+    }
+}
