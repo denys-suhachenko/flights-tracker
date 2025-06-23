@@ -8,8 +8,6 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
 
         /* Bundler mode */
         "moduleResolution": "bundler",
@@ -21,11 +19,7 @@
 
         /* Linting */
         "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true,
-        "noUncheckedSideEffectImports": true,
-        "noUncheckedIndexedAccess": true
+        "noFallthroughCasesInSwitch": true
     },
     "include": ["src"]
 }

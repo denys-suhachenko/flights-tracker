@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { Container, styled, type ButtonProps } from '@mui/material';
 
 import LanguageSwitcher from './components/LanguageSwitcher';
+import NavbarLogo from './NavbarLogo.svg';
 
 interface NavButtonProps extends ButtonProps {
     to: string;
@@ -34,7 +35,7 @@ const Navbar = () => {
                 <Toolbar>
                     <Box
                         component="img"
-                        src={'/src/assets/images/logo.svg'}
+                        src={NavbarLogo}
                         alt="Logo"
                         sx={{ width: 40, height: 40, mr: 2 }}
                     />
