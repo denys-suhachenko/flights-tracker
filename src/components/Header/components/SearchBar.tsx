@@ -5,7 +5,16 @@ const SearchBar = () => {
     const { t } = useTranslation();
 
     return (
-        <Card sx={{ p: 2, mt: 8, width: 800 }}>
+        <Card
+            sx={{
+                p: 2,
+                mt: 8,
+                width: {
+                    xs: '100%',
+                    md: '800px',
+                },
+            }}
+        >
             <Stack direction="row" spacing={2}>
                 <FormControl fullWidth size="small">
                     <TextField
