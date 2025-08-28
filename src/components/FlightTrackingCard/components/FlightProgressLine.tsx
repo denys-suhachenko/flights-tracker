@@ -1,28 +1,42 @@
 import { Box, Stack } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
 
-import type { FlightInfo } from '../FlightTrackingCard.types';
 import styles from './FlightProgressLine.styles';
+import dayjs from 'dayjs';
+import { FlightStatus, type Flight } from '../../../types/flight';
 
 interface FlightProgressLineProps {
-    flightInfo: FlightInfo;
+  flightInfo: Flight;
 }
 
 const FlightProgressLine = ({ flightInfo }: FlightProgressLineProps) => {
-    return (
-        <Stack
-            direction="row"
-            alignItems="center"
-            sx={{
-                justifyContent: 'space-between',
-                flexGrow: 1,
-            }}
-        >
-            <Box sx={[styles.destinationDot, styles.departureDotLine]} />
-            <FlightIcon sx={styles.flightIcon} />
-            <Box sx={[styles.destinationDot, styles.arrivalDotLine]} />
-        </Stack>
-    );
+  const totalDuration = dayjs(flightInfo.arrival_time).diff(
+    flightInfo.departure_time,
+    'minutes'
+  );
+  const currentDuration = dayjs().diff(flightInfo.departure_time, 'minutes');
+  const progress = Math.max(0, Math.min(currentDuration / totalDuration, 1));
+
+  return (
+    <Stack
+      direction="row"
+      alignItems="center"
+      sx={{
+        flexGrow: 1,
+        position: 'relative',
+      }}
+    >
+      <Box sx={styles.destinationDot} />
+
+      <Box sx={[styles.solidLine(`${progress * 100}%`)]}></Box>
+
+      <FlightIcon sx={styles.flightIcon} />
+
+      <Box sx={[styles.dashedLine(`${(1 - progress) * 100}%`)]}></Box>
+
+      <Box sx={styles.destinationDot} />
+    </Stack>
+  );
 };
 
 export default FlightProgressLine;

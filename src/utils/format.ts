@@ -2,26 +2,26 @@ import dayjs from 'dayjs';
 import type { TFunction } from 'i18next';
 
 export const formatDate = (date: string) => {
-    return dayjs(date).format('YYYY-MM-DD');
+  return dayjs(date).format('D MMMM YYYY');
 };
 
 export const formatTime = (date: string) => {
-    return dayjs(date).format('hh:mm A');
+  return dayjs(date).format('hh:mm A');
 };
 
-export const formatDuration = (duration: number, t: TFunction) => {
-    const hours = Math.floor(duration); // integer part of duration
-    const minutes = Math.floor((duration - hours) * 60); // convert decimal part to minutes
-    let translationKey = 'units.duration.minutes'; // show minutes by default (even 0 min)
+export const formatDuration = (time: string, t: TFunction) => {
+  const hours = dayjs(time, 'HH:mm').hour();
+  const minutes = dayjs(time, 'HH:mm').minute();
+  let translationKey = 'units.duration.minutes';
 
-    if (hours && minutes) {
-        translationKey = 'units.duration.time'; // show time if both hours and minutes are present
-    } else if (hours) {
-        translationKey = 'units.duration.hours'; // show hours if only hours are present
-    }
+  if (hours && minutes) {
+    translationKey = 'units.duration.time';
+  } else if (hours) {
+    translationKey = 'units.duration.hours';
+  }
 
-    return t(translationKey, {
-        hours,
-        minutes,
-    });
+  return t(translationKey, {
+    hours,
+    minutes,
+  });
 };
