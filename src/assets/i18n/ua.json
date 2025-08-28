@@ -61,10 +61,11 @@
             "arrival_date": "Дата прибуття",
             "departure_date": "Дата відправлення",
             "status": {
-                "ON_TIME": "В польоті",
-                "DELAYED": "Затримка",
-                "CANCELLED": "Скасовано",
-                "ARRIVED": "Прибув"
+                "on_time": "В польоті",
+                "delayed": "Затримка",
+                "cancelled": "Скасовано",
+                "arrived": "Прибув",
+                "scheduled": "Заплановано"
             }
         }
     },

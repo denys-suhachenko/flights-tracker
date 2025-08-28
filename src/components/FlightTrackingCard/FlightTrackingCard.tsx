@@ -6,133 +6,137 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useTranslation } from 'react-i18next';
 
 import { formatDate, formatDuration, formatTime } from '../../utils/format';
+import { FlightStatus, type Flight } from '../../types/flight';
 
-import type { FlightInfo } from './FlightTrackingCard.types';
 import FlightProgressLine from './components/FlightProgressLine';
 
 interface FlightTrackingCardProps {
-    flightInfo: FlightInfo;
+  flightInfo: Flight;
 }
 
 const FlightTrackingCard = ({ flightInfo }: FlightTrackingCardProps) => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    return (
-        <Card>
-            <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
-                <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    sx={{ pb: 1, borderBottom: '1px dashed #bdbdbd' }}
-                >
-                    <Typography variant="h6">
-                        {flightInfo.flightNumber}
-                    </Typography>
+  const statusColors = {
+    [FlightStatus.ON_TIME]: 'success.main',
+    [FlightStatus.DELAYED]: 'warning.main',
+    [FlightStatus.CANCELLED]: 'error.main',
+  };
 
-                    <Stack direction="column" alignItems="flex-end">
-                        <Typography variant="body2" color="success.main">
-                            {t(
-                                `components.flight_tracking_card.status.${flightInfo.status}`
-                            )}
-                        </Typography>
+  return (
+    <Card>
+      <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          sx={{ pb: 1, borderBottom: '1px dashed #bdbdbd' }}
+        >
+          <Typography variant="h6">
+            {`${flightInfo.airline.iata} ${flightInfo.flight_number}`}
+          </Typography>
 
-                        <Typography variant="caption">
-                            {`${formatDuration(flightInfo.flightDuration, t)}`}
-                        </Typography>
-                    </Stack>
-                </Stack>
+          <Stack direction="column" alignItems="flex-end">
+            <Typography
+              variant="body2"
+              fontWeight={500}
+              color={
+                statusColors[flightInfo.status as keyof typeof statusColors]
+              }
+            >
+              {t(`components.flight_tracking_card.status.${flightInfo.status}`)}
+            </Typography>
 
-                <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    spacing={2}
-                    sx={{ width: '100%', py: 2 }}
-                >
-                    <Box sx={{ textAlign: 'left' }}>
-                        <Typography variant="body2" mb={0.5}>
-                            {`${t('components.flight_tracking_card.departure')}: ${formatTime(flightInfo.departure.date)}`}
-                        </Typography>
+            {(flightInfo.status === FlightStatus.ARRIVED ||
+              flightInfo.status === FlightStatus.ON_TIME) && (
+              <Typography variant="caption">
+                {formatDuration(flightInfo.duration, t)}
+              </Typography>
+            )}
+          </Stack>
+        </Stack>
 
-                        <Typography variant="h5" fontWeight={600}>
-                            {flightInfo.departure.code}
-                        </Typography>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          spacing={2}
+          sx={{ width: '100%', py: 2 }}
+        >
+          <Box sx={{ textAlign: 'left' }}>
+            <Typography variant="body2" mb={0.5}>
+              {`${t('components.flight_tracking_card.departure')}: ${formatTime(flightInfo.departure_time)}`}
+            </Typography>
 
-                        <Typography variant="body2">
-                            {`${flightInfo.departure.city} - ${flightInfo.departure.country}`}
-                        </Typography>
-                    </Box>
+            <Typography variant="h5" fontWeight={600}>
+              {flightInfo.departure_airport.iata}
+            </Typography>
 
-                    <FlightProgressLine flightInfo={flightInfo} />
+            <Typography variant="body2">
+              {`${flightInfo.departure_airport.city} - ${flightInfo.departure_airport.country}`}
+            </Typography>
+          </Box>
 
-                    <Box sx={{ textAlign: 'right' }}>
-                        <Typography variant="body2" mb={0.5}>
-                            {`${t('components.flight_tracking_card.arrival')}: ${formatTime(flightInfo.arrival.date)}`}
-                        </Typography>
+          <FlightProgressLine flightInfo={flightInfo} />
 
-                        <Typography variant="h5" fontWeight={600}>
-                            {flightInfo.arrival.code}
-                        </Typography>
+          <Box sx={{ textAlign: 'right' }}>
+            <Typography variant="body2" mb={0.5}>
+              {`${t('components.flight_tracking_card.arrival')}: ${formatTime(flightInfo.arrival_time)}`}
+            </Typography>
 
-                        <Typography variant="body2">
-                            {`${flightInfo.arrival.city} - ${flightInfo.arrival.country}`}
-                        </Typography>
-                    </Box>
-                </Stack>
+            <Typography variant="h5" fontWeight={600}>
+              {flightInfo.arrival_airport.iata}
+            </Typography>
 
-                <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    sx={{ pt: 2, borderTop: '1px dashed #bdbdbd' }}
-                >
-                    <Stack direction="row" alignItems="center" spacing={3}>
-                        <Stack direction="row" alignItems="center" spacing={1}>
-                            <Tooltip
-                                title={t(
-                                    'components.flight_tracking_card.arrival_date'
-                                )}
-                            >
-                                <CalendarMonthIcon fontSize="small" />
-                            </Tooltip>
-                            <Typography variant="body2">
-                                {formatDate(flightInfo.arrival.date)}
-                            </Typography>
-                        </Stack>
+            <Typography variant="body2">
+              {`${flightInfo.arrival_airport.city} - ${flightInfo.arrival_airport.country}`}
+            </Typography>
+          </Box>
+        </Stack>
 
-                        <Stack direction="row" alignItems="center" spacing={1}>
-                            <Tooltip
-                                title={t(
-                                    'components.flight_tracking_card.duration'
-                                )}
-                            >
-                                <ScheduleIcon fontSize="small" />
-                            </Tooltip>
-                            <Typography variant="body2">
-                                {formatDuration(flightInfo.totalTime, t)}
-                            </Typography>
-                        </Stack>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          sx={{ pt: 2, borderTop: '1px dashed #bdbdbd' }}
+        >
+          <Stack direction="row" alignItems="center" spacing={3}>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Tooltip
+                title={t('components.flight_tracking_card.arrival_date')}
+              >
+                <CalendarMonthIcon fontSize="small" />
+              </Tooltip>
+              <Typography variant="body2">
+                {formatDate(flightInfo.arrival_time)}
+              </Typography>
+            </Stack>
 
-                        <Stack direction="row" alignItems="center" spacing={1}>
-                            <Tooltip
-                                title={t(
-                                    'components.flight_tracking_card.passengers'
-                                )}
-                            >
-                                <PeopleIcon fontSize="small" />
-                            </Tooltip>
-                            <Typography variant="body2">
-                                {flightInfo.totalPassengers}
-                            </Typography>
-                        </Stack>
-                    </Stack>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Tooltip title={t('components.flight_tracking_card.duration')}>
+                <ScheduleIcon fontSize="small" />
+              </Tooltip>
+              <Typography variant="body2">
+                {formatDuration(flightInfo.duration, t)}
+              </Typography>
+            </Stack>
 
-                    <Button size="small">
-                        {t('components.flight_tracking_card.learn_more')}
-                    </Button>
-                </Stack>
-            </CardContent>
-        </Card>
-    );
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Tooltip title={t('components.flight_tracking_card.passengers')}>
+                <PeopleIcon fontSize="small" />
+              </Tooltip>
+              <Typography variant="body2">
+                {flightInfo.passengers_total}
+              </Typography>
+            </Stack>
+          </Stack>
+
+          <Button size="small">
+            {t('components.flight_tracking_card.learn_more')}
+          </Button>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default FlightTrackingCard;

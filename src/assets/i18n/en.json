@@ -61,10 +61,11 @@
             "arrival_date": "Arrival date",
             "departure_date": "Departure date",
             "status": {
-                "ON_TIME": "On time",
-                "DELAYED": "Delayed",
-                "CANCELLED": "Cancelled",
-                "ARRIVED": "Arrived"
+                "on_time": "On time",
+                "delayed": "Delayed",
+                "cancelled": "Cancelled",
+                "arrived": "Arrived",
+                "scheduled": "Scheduled"
             }
         }
     },
