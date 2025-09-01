@@ -8,6 +8,7 @@
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
+        "types": ["node"],
 
         /* Bundler mode */
         "moduleResolution": "bundler",
@@ -19,7 +20,15 @@
 
         /* Linting */
         "strict": true,
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+
+        /* Paths */
+        "baseUrl": ".",
+        "paths": {
+            "@app/*": [
+                "src/*"
+            ]
+        },
     },
     "include": ["src"]
 }

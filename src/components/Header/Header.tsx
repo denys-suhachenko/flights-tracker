@@ -2,51 +2,33 @@ import { Box, Stack, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useTranslation } from 'react-i18next';
 
-import SearchBar from './components/SearchBar';
-import Navbar from '../Navbar/Navbar';
+import Navbar from '@app/components/Navbar/Navbar';
 
-import './Header.scss';
+import SearchBar from './components/SearchBar';
+import styles from './Header.styles';
 
 const Header = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    return (
-        <Box sx={{ position: 'relative' }}>
-            <Navbar />
-            <Box className="main-header" sx={{ pt: 8.5 }}>
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        inset: 0,
-                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
-                        zIndex: 1,
-                    }}
-                />
+  return (
+    <Box sx={{ position: 'relative' }}>
+      <Navbar />
 
-                <Container
-                    sx={{
-                        padding: '48px 32px 96px 32px',
-                        position: 'relative',
-                        zIndex: 2,
-                    }}
-                >
-                    <Stack
-                        direction="column"
-                        alignItems="center"
-                    >
-                        <Typography
-                            variant="h3"
-                            sx={{ fontWeight: 500, textAlign: 'center' }}
-                        >
-                            {t('header.title')}
-                        </Typography>
+      <Box sx={styles.mainHeader}>
+        <Box sx={styles.overlay} />
 
-                        <SearchBar />
-                    </Stack>
-                </Container>
-            </Box>
-        </Box>
-    );
+        <Container sx={styles.container}>
+          <Stack direction="column" alignItems="center">
+            <Typography variant="h3" align="center" sx={{ fontWeight: 500 }}>
+              {t('header.title')}
+            </Typography>
+
+            <SearchBar />
+          </Stack>
+        </Container>
+      </Box>
+    </Box>
+  );
 };
 
 export default Header;

@@ -19,31 +19,8 @@ import {
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import { type Airline, type Airport, FlightStatus } from '../../types/flight';
-import flightsService from '../../services/flightsService';
-
-const airlines = [
-  'SriLankan Airlines',
-  'British Airways',
-  'Air France',
-  'Lufthansa',
-  'Emirates',
-  'Qantas',
-];
-const airports = [
-  'London Heathrow',
-  'Santorini',
-  'John F. Kennedy International',
-  'Los Angeles International',
-  'Charles de Gaulle',
-  'Leonardo da Vinci–Fiumicino',
-  'Frankfurt am Main',
-  'Adolfo Suárez Madrid–Barajas',
-  'Dubai International',
-  'Chhatrapati Shivaji International',
-  'Sydney Kingsford Smith',
-  'Melbourne Tullamarine',
-];
+import flightsService from '@app/services/flightsService';
+import { type Airline, type Airport, FlightStatus } from '@app/types/flight';
 
 const statuses = [
   FlightStatus.SCHEDULED,
@@ -55,6 +32,7 @@ const statuses = [
 
 const Filter = () => {
   const { t } = useTranslation();
+
   const [airports, setAirports] = useState<Airport[]>([]);
   const [selectedAirports, setSelectedAirports] = useState<Airport[]>([]);
 
@@ -78,7 +56,6 @@ const Filter = () => {
 
   const handleChangeAirports = (event: SelectChangeEvent<Airport[]>) => {
     const value = event.target.value;
-    console.log(value);
     setSelectedAirports(
       typeof value === 'string'
         ? (value
@@ -113,6 +90,66 @@ const Filter = () => {
       </Typography>
 
       <Stack spacing={2}>
+        {/* Statuses multiselect */}
+        <FormControl fullWidth size="small">
+          <InputLabel>{t('pages.home.filter.status.title')}</InputLabel>
+          <Select
+            multiple
+            value={selectedStatuses}
+            onChange={handleChangeStatuses}
+            renderValue={(selected) => selected.join(', ')}
+            label={t('pages.home.filter.status.title')}
+          >
+            {statuses.map((option) => (
+              <MenuItem key={option} value={option}>
+                <Checkbox
+                  checked={selectedStatuses.includes(option)}
+                  sx={{ p: 0, mr: 1 }}
+                />
+                <ListItemText
+                  primary={t(
+                    `components.flight_tracking_card.status.${option}`
+                  )}
+                />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <Divider textAlign="left" sx={{ fontSize: 14 }}>
+          Departures
+        </Divider>
+
+        {/* Departure date */}
+        <FormControl fullWidth size="small">
+          <DatePicker
+            label={t('pages.home.filter.departure_date.title')}
+            slotProps={{
+              textField: {
+                size: 'small',
+                fullWidth: true,
+              },
+            }}
+          />
+        </FormControl>
+
+        <Divider textAlign="left" sx={{ fontSize: 14 }}>
+          Arrivals
+        </Divider>
+
+        {/* Arrival date */}
+        <FormControl fullWidth size="small">
+          <DatePicker
+            label={t('pages.home.filter.arrival_date.title')}
+            slotProps={{
+              textField: {
+                size: 'small',
+                fullWidth: true,
+              },
+            }}
+          />
+        </FormControl>
+
         {/* Airports multiselect */}
         <FormControl fullWidth size="small">
           <InputLabel>{t('pages.home.filter.airports.title')}</InputLabel>
@@ -175,58 +212,6 @@ const Filter = () => {
         </FormControl>
 
         <Divider />
-
-        {/* Departure date */}
-        <FormControl fullWidth size="small">
-          <DatePicker
-            label={t('pages.home.filter.departure_date.title')}
-            slotProps={{
-              textField: {
-                size: 'small',
-                fullWidth: true,
-              },
-            }}
-          />
-        </FormControl>
-
-        {/* Arrival date */}
-        <FormControl fullWidth size="small">
-          <DatePicker
-            label={t('pages.home.filter.arrival_date.title')}
-            slotProps={{
-              textField: {
-                size: 'small',
-                fullWidth: true,
-              },
-            }}
-          />
-        </FormControl>
-
-        {/* Statuses multiselect */}
-        <FormControl fullWidth size="small">
-          <InputLabel>{t('pages.home.filter.status.title')}</InputLabel>
-          <Select
-            multiple
-            value={selectedStatuses}
-            onChange={handleChangeStatuses}
-            renderValue={(selected) => selected.join(', ')}
-            label={t('pages.home.filter.status.title')}
-          >
-            {statuses.map((option) => (
-              <MenuItem key={option} value={option}>
-                <Checkbox
-                  checked={selectedStatuses.includes(option)}
-                  sx={{ p: 0, mr: 1 }}
-                />
-                <ListItemText
-                  primary={t(
-                    `components.flight_tracking_card.status.${option}`
-                  )}
-                />
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
 
         <Divider />
 

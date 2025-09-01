@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import notFoundImage from '../assets/images/parachute.svg';
+import notFoundImage from '@app/assets/images/parachute.svg';
 
 const NotFound = () => {
     const { t } = useTranslation();

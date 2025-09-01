@@ -1,9 +1,10 @@
 import { Box, Stack } from '@mui/material';
 import FlightIcon from '@mui/icons-material/Flight';
+import dayjs from 'dayjs';
+
+import { FlightStatus, type Flight } from '@app/types/flight';
 
 import styles from './FlightProgressLine.styles';
-import dayjs from 'dayjs';
-import { FlightStatus, type Flight } from '../../../types/flight';
 
 interface FlightProgressLineProps {
   flightInfo: Flight;
@@ -30,7 +31,9 @@ const FlightProgressLine = ({ flightInfo }: FlightProgressLineProps) => {
 
       <Box sx={[styles.solidLine(`${progress * 100}%`)]}></Box>
 
-      <FlightIcon sx={styles.flightIcon} />
+      {flightInfo.status !== FlightStatus.CANCELLED && (
+        <FlightIcon sx={styles.flightIcon} />
+      )}
 
       <Box sx={[styles.dashedLine(`${(1 - progress) * 100}%`)]}></Box>
 
