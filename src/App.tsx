@@ -7,18 +7,21 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import AppRoutes from './routes';
+import { AuthProvider } from './providers/AuthProvider';
 import { theme } from './styles/theme';
 import './App.scss';
 
 const App = () => {
-    return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <AppRoutes />
-            </ThemeProvider>
-        </LocalizationProvider>
-    );
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </ThemeProvider>
+    </LocalizationProvider>
+  );
 };
 
 export default App;

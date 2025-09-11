@@ -4,17 +4,22 @@ import { useTranslation } from 'react-i18next';
 
 import Navbar from '@app/components/Navbar/Navbar';
 
+import HeroImage from '@app/assets/images/hero.png';
+
 import SearchBar from './components/SearchBar';
-import styles from './Header.styles';
+import styles from './Hero.styles';
 
 const Header = () => {
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box sx={(theme) => styles.wrapper(theme)}>
       <Navbar />
 
-      <Box sx={styles.mainHeader}>
+      <Box sx={{
+        ...styles.mainHeader,
+        backgroundImage: `url(${HeroImage})`,
+      }}>
         <Box sx={styles.overlay} />
 
         <Container sx={styles.container}>

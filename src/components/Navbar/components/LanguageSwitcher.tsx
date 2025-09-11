@@ -1,10 +1,33 @@
-import * as React from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { useState } from 'react';
+import {
+  Button,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
+
+import FlagIconEN from '@app/assets/images/flags/us.svg';
+import FlagIconUA from '@app/assets/images/flags/ua.svg';
+
+const langs: Record<string, { icon: string }> = {
+  en: {
+    icon: FlagIconEN,
+  },
+  ua: {
+    icon: FlagIconUA,
+  },
+};
+
+// en-GB to en
+const simplifyLocale = (lang: string) => {
+  return lang.split('-')[0];
+};
 
 const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
 
@@ -27,8 +50,9 @@ const LanguageSwitcher = () => {
         onClick={handleClick}
         sx={{ color: 'white' }}
       >
-        {i18n.language}
+        <img src={langs[simplifyLocale(i18n.language)].icon} height={16} />
       </Button>
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -48,12 +72,18 @@ const LanguageSwitcher = () => {
         }}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={() => changeLanguage('en')}>
-          {t('navbar.en')}
-        </MenuItem>
-        <MenuItem onClick={() => changeLanguage('ua')}>
-          {t('navbar.ua')}
-        </MenuItem>
+        {Object.entries(langs).map(([lang, val]) => (
+          <MenuItem onClick={() => changeLanguage(lang)}>
+            <ListItemIcon>
+              <img src={val.icon} alt={lang} height={16} />
+            </ListItemIcon>
+            <ListItemText
+              primary={t(`navbar.${lang}`, {
+                defaultValue: lang,
+              })}
+            />
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );

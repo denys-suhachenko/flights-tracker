@@ -239,7 +239,7 @@ const Filter = () => {
       </Stack>
 
       {/* Submit button */}
-      <Button variant="contained" sx={{ mt: 2, width: '100%' }}>
+      <Button variant="contained" fullWidth sx={{ mt: 2 }}>
         {t('pages.home.filter.actions.submit')}
       </Button>
     </Paper>

@@ -75,5 +75,10 @@
       "hours": "{{hours}}h",
       "minutes": "{{minutes}} min"
     }
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register"
   }
 }

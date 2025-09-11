@@ -75,5 +75,10 @@
       "hours": "{{hours}} год",
       "minutes": "{{minutes}} хв"
     }
+  },
+  "auth": {
+    "login": "Увійти",
+    "logout": "Вийти",
+    "register": "Зареєструватися"
   }
 }

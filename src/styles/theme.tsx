@@ -6,6 +6,9 @@ export const theme = createTheme({
       main: '#000',
     },
   },
+  shape: {
+    borderRadius: 8,
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
@@ -17,6 +20,15 @@ export const theme = createTheme({
     MuiStack: {
       defaultProps: {
         useFlexGap: true,
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderWidth: 1,
+          },
+        },
       },
     },
   },
