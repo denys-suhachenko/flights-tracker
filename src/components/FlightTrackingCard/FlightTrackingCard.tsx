@@ -5,10 +5,11 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useTranslation } from 'react-i18next';
 
-import { formatDate, formatDuration, formatTime } from '../../utils/format';
-import { FlightStatus, type Flight } from '../../types/flight';
+import { formatDate, formatDuration, formatTime } from '@app/utils/formatters';
+import { FlightStatus, type Flight } from '@app/types/flight';
 
-import FlightProgressLine from './components/FlightProgressLine';
+import FlightProgressLine from './components/FlightProgressLine/FlightProgressLine';
+import FlightDurationTimer from './components/FlightDurationTimer/FlightDurationTimer';
 
 interface FlightTrackingCardProps {
   flightInfo: Flight;
@@ -21,6 +22,15 @@ const FlightTrackingCard = ({ flightInfo }: FlightTrackingCardProps) => {
     [FlightStatus.ON_TIME]: 'success.main',
     [FlightStatus.DELAYED]: 'warning.main',
     [FlightStatus.CANCELLED]: 'error.main',
+  };
+
+  const renderDuration = () => {
+    if (flightInfo.status === FlightStatus.ON_TIME) {
+      return <FlightDurationTimer departureTime={flightInfo.departure_time} />;
+    } else if (flightInfo.status === FlightStatus.ARRIVED) {
+      return formatDuration(flightInfo.duration, t);
+    }
+    return null;
   };
 
   return (
@@ -47,12 +57,15 @@ const FlightTrackingCard = ({ flightInfo }: FlightTrackingCardProps) => {
               {t(`components.flight_tracking_card.status.${flightInfo.status}`)}
             </Typography>
 
-            {(flightInfo.status === FlightStatus.ARRIVED ||
-              flightInfo.status === FlightStatus.ON_TIME) && (
-              <Typography variant="caption">
-                {formatDuration(flightInfo.duration, t)}
-              </Typography>
-            )}
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'inline-block',
+                minHeight: '20px',
+              }}
+            >
+              {renderDuration()}
+            </Typography>
           </Stack>
         </Stack>
 
