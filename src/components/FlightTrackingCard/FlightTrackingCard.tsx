@@ -1,4 +1,12 @@
-import { Box, Button, Card, Stack, Tooltip, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Card,
+  Link,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { CardContent } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import ScheduleIcon from '@mui/icons-material/Schedule';
@@ -34,7 +42,7 @@ const FlightTrackingCard = ({ flightInfo }: FlightTrackingCardProps) => {
   };
 
   return (
-    <Card>
+    <Card variant="soft">
       <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
         <Stack
           direction="row"
@@ -143,9 +151,9 @@ const FlightTrackingCard = ({ flightInfo }: FlightTrackingCardProps) => {
             </Stack>
           </Stack>
 
-          <Button size="small">
+          <Link href="/" underline="hover" sx={{ fontWeight: 'medium' }}>
             {t('components.flight_tracking_card.learn_more')}
-          </Button>
+          </Link>
         </Stack>
       </CardContent>
     </Card>

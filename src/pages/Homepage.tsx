@@ -14,6 +14,7 @@ const Homepage = () => (
     }}
   >
     <Header />
+
     <Container>
       <Grid container spacing={3} sx={{ py: 4 }}>
         <Grid size={{ xs: 12, md: 4 }}>
@@ -25,6 +26,7 @@ const Homepage = () => (
         </Grid>
       </Grid>
     </Container>
+
     <Footer />
   </Box>
 );

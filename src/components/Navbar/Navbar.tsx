@@ -1,7 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Toolbar,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import NavbarWhiteLogo from '@app/assets/navbar-logo-white.svg';
 import NavbarBlackLogo from '@app/assets/navbar-logo-black.svg';
@@ -51,6 +59,8 @@ const Navbar = () => {
           bgcolor: isScrolled ? 'rgba(255, 255, 255, 0.5)' : 'transparent',
           color: isScrolled ? 'text.primary' : 'common.white',
           backdropFilter: 'blur(12px)',
+          boxShadow:
+            'rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem, rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0.0625rem',
         }}
       >
         <Container sx={{ maxWidth: '100%' }}>

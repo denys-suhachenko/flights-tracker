@@ -7,8 +7,9 @@
     "en": "English",
     "ua": "Ukrainian"
   },
-  "header": {
-    "title": "Flight Tracker",
+  "hero": {
+    "title": "Track flights in real time",
+    "description": "Get instant updates on departures, arrivals, delays, and aircraft status. All airlines, airports, and planes — in one convenient service.",
     "search_bar": {
       "placeholder": "Ask me what are you looking for...",
       "actions": {

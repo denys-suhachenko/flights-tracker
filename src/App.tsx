@@ -9,7 +9,6 @@ import '@fontsource/roboto/700.css';
 import AppRoutes from './routes';
 import { AuthProvider } from './providers/AuthProvider';
 import { theme } from './styles/theme';
-import './App.scss';
 
 const App = () => {
   return (

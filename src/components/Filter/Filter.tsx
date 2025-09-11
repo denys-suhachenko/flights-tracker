@@ -84,7 +84,12 @@ const Filter = () => {
   };
 
   return (
-    <Paper elevation={1} sx={{ p: 2 }}>
+    <Paper
+      variant="soft"
+      sx={{
+        padding: 2,
+      }}
+    >
       <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
         {t('pages.home.filter.title')}
       </Typography>
@@ -239,7 +244,13 @@ const Filter = () => {
       </Stack>
 
       {/* Submit button */}
-      <Button variant="contained" fullWidth sx={{ mt: 2 }}>
+      <Button
+        variant="contained"
+        fullWidth
+        sx={{
+          mt: 2,
+        }}
+      >
         {t('pages.home.filter.actions.submit')}
       </Button>
     </Paper>

@@ -15,20 +15,19 @@ const SearchBar = () => {
     <Paper
       sx={{
         p: 2,
-        mt: 8,
         borderRadius: 2,
-        width: {
-          xs: '100%',
-          md: '800px',
-        },
+        width: '100%',
+        boxShadow:
+          'rgba(0, 0, 0, 0.1) 0rem 0.625rem 0.9375rem -0.1875rem, ' +
+          'rgba(0, 0, 0, 0.05) 0rem 0.25rem 0.375rem -0.125rem',
       }}
-      elevation={2}
+      elevation={0}
     >
       <Stack direction="row" spacing={2}>
         <FormControl fullWidth>
           <TextField
             hiddenLabel
-            placeholder={t('header.search_bar.placeholder')}
+            placeholder={t('hero.search_bar.placeholder')}
             variant="outlined"
             fullWidth
             size="small"
@@ -40,8 +39,13 @@ const SearchBar = () => {
           />
         </FormControl>
 
-        <Button variant="contained" sx={{ px: 6 }}>
-          {t('header.search_bar.actions.search')}
+        <Button
+          variant="contained"
+          sx={{
+            px: 6,
+          }}
+        >
+          {t('hero.search_bar.actions.search')}
         </Button>
       </Stack>
     </Paper>
