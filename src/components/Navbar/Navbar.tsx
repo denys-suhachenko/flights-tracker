@@ -2,10 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
-import SvgIcon from '@mui/material/SvgIcon';
 
-// TODO: refactor
-import NavbarLogo from '@app/assets/navbar-logo.svg?react';
+import NavbarWhiteLogo from '@app/assets/navbar-logo-white.svg';
+import NavbarBlackLogo from '@app/assets/navbar-logo-black.svg';
 
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { useAuthentication } from '@app/providers/AuthProvider';
@@ -21,10 +20,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        console.log(entry.isIntersecting, entry.intersectionRatio);
-        return setIsScrolled(!entry.isIntersecting);
-      },
+      ([entry]) => setIsScrolled(!entry.isIntersecting),
       {
         threshold: 0,
       }
@@ -60,20 +56,11 @@ const Navbar = () => {
         <Container sx={{ maxWidth: '100%' }}>
           <Toolbar>
             <Link to="/">
-              {/* <Box
+              <Box
                 component="img"
                 src={isScrolled ? NavbarBlackLogo : NavbarWhiteLogo}
                 alt="Logo"
                 sx={{ width: 32, height: 32, mr: 2 }}
-              /> */}
-              <SvgIcon
-                component={NavbarLogo}
-                inheritViewBox
-                sx={{
-                  fontSize: 32,
-                  color: isScrolled ? 'text.primary' : 'common.white',
-                  mr: 2,
-                }}
               />
             </Link>
 
