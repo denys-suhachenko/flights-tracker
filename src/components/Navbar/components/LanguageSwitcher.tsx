@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
-  Button,
+  Box,
+  IconButton,
   ListItemIcon,
   ListItemText,
   Menu,
@@ -20,20 +21,14 @@ const langs: Record<string, { icon: string }> = {
   },
 };
 
-// en-GB to en
+// example: en-GB to en
 const simplifyLocale = (lang: string) => {
   return lang.split('-')[0];
 };
 
 const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -41,22 +36,39 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
+    <>
+      <IconButton
+        id="language-button"
+        aria-label="Change language"
+        aria-controls={Boolean(anchorEl) ? 'language-switcher' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        sx={{ color: 'white' }}
+        aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+        disableRipple
+        disableFocusRipple
+        size="small"
+        sx={{
+          lineHeight: 0,
+          color: 'inherit',
+          borderRadius: 0,
+          p: 0,
+          width: 22,
+          height: 16,
+        }}
+        onClick={(e) => setAnchorEl(e.currentTarget)}
       >
-        <img src={langs[simplifyLocale(i18n.language)].icon} height={16} />
-      </Button>
+        <Box
+          component="img"
+          src={langs[simplifyLocale(i18n.language)].icon}
+          alt={i18n.language}
+          loading="lazy"
+          sx={{ display: 'block', width: 22, height: 16 }}
+        />
+      </IconButton>
 
       <Menu
-        id="basic-menu"
+        id="language-switcher"
         anchorEl={anchorEl}
-        open={open}
+        open={Boolean(anchorEl)}
         slotProps={{
           list: {
             'aria-labelledby': 'basic-button',
@@ -73,7 +85,7 @@ const LanguageSwitcher = () => {
         onClose={() => setAnchorEl(null)}
       >
         {Object.entries(langs).map(([lang, val]) => (
-          <MenuItem onClick={() => changeLanguage(lang)}>
+          <MenuItem key={lang} onClick={() => changeLanguage(lang)}>
             <ListItemIcon>
               <img src={val.icon} alt={lang} height={16} />
             </ListItemIcon>
@@ -85,7 +97,7 @@ const LanguageSwitcher = () => {
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </>
   );
 };
 

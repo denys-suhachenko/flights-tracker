@@ -47,7 +47,16 @@ const Header = () => {
               {t('hero.description')}
             </Typography>
 
-            <Box sx={{ width: '100%', mt: 2 }}>
+            <Box
+              sx={{
+                display: {
+                  xs: 'none',
+                  md: 'block',
+                },
+                width: '100%',
+                mt: 2,
+              }}
+            >
               <SearchBar />
             </Box>
           </Stack>

@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
 const Footer = () => {
@@ -13,11 +13,9 @@ const Footer = () => {
       }}
     >
       <Container>
-        <Stack direction="row" spacing={2}>
-          <Typography variant="body2" component="small">
-            &copy; {dayjs().year()} All rights reserved.
-          </Typography>
-        </Stack>
+        <Typography variant="body2" component="small">
+          &copy; {dayjs().year()} All rights reserved.
+        </Typography>
       </Container>
     </Box>
   );
