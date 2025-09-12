@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from '@mui/material';
 
-import Header from '@app/components/Hero/Hero';
+import Hero from '@app/components/Hero/Hero';
 import Filter from '@app/components/Filter/Filter';
 import FlightsList from '@app/components/FlightsList/FlightsList';
 import Footer from '@app/components/Footer/Footer';
@@ -13,7 +13,7 @@ const Homepage = () => (
       minHeight: '100dvh',
     }}
   >
-    <Header />
+    <Hero />
 
     <Container>
       <Grid container spacing={3} sx={{ py: 4 }}>

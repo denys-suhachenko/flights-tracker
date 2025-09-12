@@ -3,14 +3,14 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './assets/i18n/en.json';
-import ua from './assets/i18n/ua.json';
+import uk from './assets/i18n/uk.json';
 
 const setHtmlLang = (lang?: string) => {
   if (typeof document === 'undefined') {
     return;
   }
 
-  document.documentElement.lang = lang || 'us';
+  document.documentElement.lang = lang || 'en';
 };
 
 i18n
@@ -18,9 +18,10 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
+    load: 'languageOnly',
     resources: {
       en: { translation: en },
-      ua: { translation: ua },
+      uk: { translation: uk },
     },
     interpolation: { escapeValue: false },
   })

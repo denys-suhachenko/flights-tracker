@@ -8,13 +8,26 @@ import HeroImage from '@app/assets/images/hero.png';
 
 import SearchBar from './components/SearchBar';
 import styles from './Hero.styles';
+import { useRef } from 'react';
 
-const Header = () => {
+const Hero = () => {
   const { t } = useTranslation();
+  const anchorRef = useRef<HTMLElement | null>(null);
 
   return (
     <Box sx={(theme) => styles.wrapper(theme)}>
-      <Navbar />
+      <Navbar pages={['home', 'about']} scrollAnchorRef={anchorRef} />
+
+      <Box
+        ref={anchorRef}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          height: 1,
+          width: 1,
+          pointerEvents: 'none',
+        }}
+      />
 
       <Box
         sx={{
@@ -66,4 +79,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Hero;

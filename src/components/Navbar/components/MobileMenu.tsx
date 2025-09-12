@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { t } from 'i18next';
 
 interface MobileMenuProps {
-  pages: string[];
+  pages?: string[];
 }
 
 const MobileMenu = ({ pages }: MobileMenuProps) => {
@@ -36,7 +36,7 @@ const MobileMenu = ({ pages }: MobileMenuProps) => {
         open={!!anchorEl}
         onClose={() => setAnchorEl(null)}
       >
-        {pages.map((page) => (
+        {pages?.map((page) => (
           <MenuItem key={page} onClick={() => setAnchorEl(null)}>
             {t(`navbar.items.${page}`)}
           </MenuItem>

@@ -16,14 +16,9 @@ const langs: Record<string, { icon: string }> = {
   en: {
     icon: FlagIconEN,
   },
-  ua: {
+  uk: {
     icon: FlagIconUA,
   },
-};
-
-// example: en-GB to en
-const simplifyLocale = (lang: string) => {
-  return lang.split('-')[0];
 };
 
 const LanguageSwitcher = () => {
@@ -58,7 +53,7 @@ const LanguageSwitcher = () => {
       >
         <Box
           component="img"
-          src={langs[simplifyLocale(i18n.language)].icon}
+          src={langs[i18n.language].icon}
           alt={i18n.language}
           loading="lazy"
           sx={{ display: 'block', width: 22, height: 16 }}
