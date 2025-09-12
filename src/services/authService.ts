@@ -1,6 +1,6 @@
 import httpService from './httpService';
 
-const login = async (email: string, password: string) => {
+const signIn = async (email: string, password: string) => {
   const response = await httpService.post('/auth/login', {
     email,
     password,
@@ -11,7 +11,7 @@ const login = async (email: string, password: string) => {
   return response.data.user;
 };
 
-const logout = async () => {
+const signOut = async () => {
   try {
     await httpService.post('/auth/logout');
     localStorage.removeItem('token');
@@ -20,7 +20,7 @@ const logout = async () => {
   }
 };
 
-const register = async (email: string, password: string) => {
+const signUp = async (email: string, password: string) => {
   const response = await httpService.post('/auth/register', {
     email,
     username: email,
@@ -34,7 +34,7 @@ const register = async (email: string, password: string) => {
 };
 
 export default {
-  login,
-  logout,
-  register,
+  signIn,
+  signOut,
+  signUp,
 };

@@ -15,7 +15,7 @@ const pages = ['home', 'about'];
 
 const Navbar = () => {
   const { t } = useTranslation();
-  const { isAuthenticated, logout } = useAuthentication();
+  const { isAuthenticated, signOut } = useAuthentication();
   const [isScrolled, setIsScrolled] = useState(false);
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
@@ -100,7 +100,7 @@ const Navbar = () => {
               sx={{ display: 'flex', alignItems: 'center', gap: 2, ml: 'auto' }}
             >
               {isAuthenticated ? (
-                <Button color="inherit" onClick={logout}>
+                <Button color="inherit" onClick={signOut}>
                   {t('auth.logout')}
                 </Button>
               ) : (

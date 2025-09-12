@@ -22,6 +22,7 @@ i18n
       en: { translation: en },
       ua: { translation: ua },
     },
+    interpolation: { escapeValue: false },
   })
   .then(() => {
     setHtmlLang(i18n.resolvedLanguage);

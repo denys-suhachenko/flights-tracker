@@ -4,13 +4,10 @@ import { Alert, Stack, Pagination, Snackbar } from '@mui/material';
 import type { Flight } from '@app/types/flight';
 import flightsService from '@app/services/flightsService';
 import FlightTrackingCard from '@app/components/FlightTrackingCard/FlightTrackingCard';
-import { useAuthentication } from '@app/providers/AuthProvider';
 
 const DEFAULT_PAGE_SIZE = 3;
 
 const FlightsList = () => {
-  const { isAuthenticated, login } = useAuthentication();
-
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [flights, setFlights] = useState<Flight[]>([]);

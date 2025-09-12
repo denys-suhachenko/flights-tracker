@@ -13,9 +13,9 @@ const MobileMenu = ({ pages }: MobileMenuProps) => {
   return (
     <>
       <IconButton
-        aria-controls={Boolean(anchorEl) ? 'navbar-mobile-menu' : undefined}
+        aria-controls={!!anchorEl ? 'navbar-mobile-menu' : undefined}
         aria-haspopup="true"
-        aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+        aria-expanded={!!anchorEl ? 'true' : undefined}
         color="inherit"
         onClick={(e) => setAnchorEl(e.currentTarget)}
       >
@@ -33,7 +33,7 @@ const MobileMenu = ({ pages }: MobileMenuProps) => {
           horizontal: 'left',
         }}
         anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
         onClose={() => setAnchorEl(null)}
       >
         {pages.map((page) => (

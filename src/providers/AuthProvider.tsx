@@ -10,9 +10,9 @@ import React, {
 interface AuthContextModel {
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<any>;
-  logout: () => Promise<any>;
-  register: (email: string, password: string) => Promise<any>;
+  signIn: (email: string, password: string) => Promise<any>;
+  signOut: () => Promise<any>;
+  signUp: (email: string, password: string) => Promise<any>;
 }
 
 const AuthContext = createContext<AuthContextModel | null>(null);
@@ -30,11 +30,11 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string) => {
     setIsLoading(true);
 
     try {
-      const user = await authService.login(email, password);
+      const user = await authService.signIn(email, password);
       setIsLoading(false);
       setUser(user);
     } finally {
@@ -42,10 +42,11 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  const logout = async () => {
+  const signOut = async () => {
     setIsLoading(true);
+
     try {
-      await authService.logout();
+      await authService.signOut();
       setUser(null);
     } catch (error) {
       // TODO: handle error
@@ -54,10 +55,10 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setIsLoading(false);
   };
 
-  const register = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      await authService.register(email, password);
+      await authService.signUp(email, password);
     } catch (error) {
       // TODO: handle error
     }
@@ -68,9 +69,9 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const contextValue: AuthContextModel = {
     isLoading,
     isAuthenticated: !!localStorage.getItem('token'),
-    login,
-    logout,
-    register,
+    signIn,
+    signOut,
+    signUp,
   };
 
   return (

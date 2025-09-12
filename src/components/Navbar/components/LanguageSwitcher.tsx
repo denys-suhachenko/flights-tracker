@@ -40,9 +40,9 @@ const LanguageSwitcher = () => {
       <IconButton
         id="language-button"
         aria-label="Change language"
-        aria-controls={Boolean(anchorEl) ? 'language-switcher' : undefined}
+        aria-controls={!!anchorEl ? 'language-switcher' : undefined}
         aria-haspopup="true"
-        aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+        aria-expanded={!!anchorEl ? 'true' : undefined}
         disableRipple
         disableFocusRipple
         size="small"
@@ -68,7 +68,7 @@ const LanguageSwitcher = () => {
       <Menu
         id="language-switcher"
         anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
         slotProps={{
           list: {
             'aria-labelledby': 'basic-button',
