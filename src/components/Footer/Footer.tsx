@@ -1,7 +1,10 @@
 import { Box, Container, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       component="footer"
@@ -14,7 +17,7 @@ const Footer = () => {
     >
       <Container>
         <Typography variant="body2" component="small">
-          &copy; {dayjs().year()} All rights reserved.
+          &copy; {dayjs().year()} {t('footer.copyright')}
         </Typography>
       </Container>
     </Box>

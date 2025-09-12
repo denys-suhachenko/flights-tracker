@@ -17,6 +17,9 @@
       }
     }
   },
+  "footer": {
+    "copyright": "All rights reserved."
+  },
   "pages": {
     "home": {
       "filter": {
@@ -78,8 +81,31 @@
     }
   },
   "auth": {
-    "login": "Login",
-    "logout": "Logout",
-    "register": "Register"
+    "actions": {
+      "login": "Login",
+      "logout": "Logout",
+      "register": "Register"
+    },
+    "login": {
+      "action": "Login",
+      "dialog": {
+        "title": "Login",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Enter your email"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Enter your password"
+          },
+          "submit": "Sign in"
+        },
+        "forgot_password": "Forgot your password?",
+        "divider": "or",
+        "google_login": "Sign in with Google",
+        "sign_up": "Don't have an account? <0>Sign up</0>"
+      }
+    }
   }
 }
