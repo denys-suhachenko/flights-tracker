@@ -1,15 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Toolbar,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
 
 import NavbarWhiteLogo from '@app/assets/navbar-logo-white.svg';
 import NavbarBlackLogo from '@app/assets/navbar-logo-black.svg';
@@ -17,6 +9,7 @@ import NavbarBlackLogo from '@app/assets/navbar-logo-black.svg';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { useAuthentication } from '@app/providers/AuthProvider';
 import LoginDialog from '../Auth/dialogs/LoginDialog/LoginDialog';
+import MobileMenu from './components/MobileMenu';
 
 const pages = ['home', 'about'];
 
@@ -64,44 +57,60 @@ const Navbar = () => {
         }}
       >
         <Container sx={{ maxWidth: '100%' }}>
-          <Toolbar>
-            <Link to="/">
-              <Box
-                component="img"
-                src={isScrolled ? NavbarBlackLogo : NavbarWhiteLogo}
-                alt="Logo"
-                sx={{ width: 32, height: 32, mr: 2 }}
-              />
-            </Link>
+          <Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Link to="/">
+                <Box
+                  component="img"
+                  src={isScrolled ? NavbarBlackLogo : NavbarWhiteLogo}
+                  alt="Logo"
+                  sx={{ width: 32, height: 32, mr: 2 }}
+                />
+              </Link>
 
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: 'none', md: 'flex' },
-              }}
-            >
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  component={Link}
-                  to={page === 'home' ? '/' : `/${page}`}
-                  variant="text"
-                  color="inherit"
-                >
-                  {t(`navbar.items.${page}`)}
-                </Button>
-              ))}
+              <Box
+                sx={{
+                  display: { xs: 'flex', md: 'none' },
+                }}
+              >
+                <MobileMenu pages={pages} />
+              </Box>
+
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                }}
+              >
+                {pages.map((page) => (
+                  <Button
+                    key={page}
+                    component={Link}
+                    to={page === 'home' ? '/' : `/${page}`}
+                    variant="text"
+                    color="inherit"
+                  >
+                    {t(`navbar.items.${page}`)}
+                  </Button>
+                ))}
+              </Box>
             </Box>
 
-            {isAuthenticated ? (
-              <Button color="inherit" onClick={logout}>
-                {t('auth.logout')}
-              </Button>
-            ) : (
-              <LoginDialog />
-            )}
+            <Box
+              sx={{ display: 'flex', alignItems: 'center', gap: 2, ml: 'auto' }}
+            >
+              {isAuthenticated ? (
+                <Button color="inherit" onClick={logout}>
+                  {t('auth.logout')}
+                </Button>
+              ) : (
+                <LoginDialog />
+              )}
 
-            <LanguageSwitcher />
+              <Box sx={{ lineHeight: 0 }}>
+                <LanguageSwitcher />
+              </Box>
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>

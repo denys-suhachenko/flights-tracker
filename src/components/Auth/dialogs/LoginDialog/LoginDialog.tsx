@@ -4,7 +4,6 @@ import Dialog from '@mui/material/Dialog';
 import {
   Box,
   Button,
-  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -20,29 +19,52 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import PersonIcon from '@mui/icons-material/Person';
 
 import GoogleLogo from '@app/assets/images/social/google-short-logo.svg';
 
 const LoginDialog = () => {
   const { t } = useTranslation();
 
-  const [isOpened, setIsOpened] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
-    setIsOpened(true);
+    setIsOpen(true);
   };
 
   const handleClose = () => {
-    setIsOpened(false);
+    setIsOpen(false);
   };
 
   return (
     <>
-      <Button color="inherit" onClick={handleOpen}>
+      <Button
+        color="inherit"
+        sx={{
+          display: {
+            xs: 'none',
+            md: 'inline-flex',
+          },
+        }}
+        onClick={handleOpen}
+      >
         {t('auth.login')}
       </Button>
 
-      <Dialog fullWidth maxWidth="xs" open={isOpened} onClose={handleClose}>
+      <IconButton
+        sx={{
+          display: {
+            xs: 'inline-flex',
+            md: 'none',
+          },
+          color: 'inherit',
+        }}
+        onClick={handleOpen}
+      >
+        <PersonIcon />
+      </IconButton>
+
+      <Dialog fullWidth maxWidth="xs" open={isOpen} onClose={handleClose}>
         <DialogTitle>
           <Typography variant="h6">Login</Typography>
 
