@@ -17,6 +17,9 @@
       }
     }
   },
+  "footer": {
+    "copyright": "Всі права захищено."
+  },
   "pages": {
     "home": {
       "filter": {
@@ -78,8 +81,31 @@
     }
   },
   "auth": {
-    "login": "Увійти",
-    "logout": "Вийти",
-    "register": "Зареєструватися"
+    "actions": {
+      "login": "Увійти",
+      "logout": "Вийти",
+      "register": "Зареєструватися"
+    },
+    "login": {
+      "action": "Увійти",
+      "dialog": {
+        "title": "Вхід в систему",
+        "form": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Введіть email"
+          },
+          "password": {
+            "label": "Пароль",
+            "placeholder": "Введіть пароль"
+          },
+          "submit": "Увійти"
+        },
+        "forgot_password": "Забули пароль?",
+        "divider": "або",
+        "google_login": "Увійти за допомогою Google",
+        "sign_up": "Немає акаунту? <0>Зареєструватися</0>"
+      }
+    }
   }
 }

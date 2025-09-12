@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import Dialog from '@mui/material/Dialog';
 import {
   Box,
   Button,
+  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -19,54 +20,31 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import PersonIcon from '@mui/icons-material/Person';
 
 import GoogleLogo from '@app/assets/images/social/google-short-logo.svg';
 
 const LoginDialog = () => {
   const { t } = useTranslation();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
 
   const handleOpen = () => {
-    setIsOpen(true);
+    setIsOpened(true);
   };
 
   const handleClose = () => {
-    setIsOpen(false);
+    setIsOpened(false);
   };
 
   return (
     <>
-      <Button
-        color="inherit"
-        sx={{
-          display: {
-            xs: 'none',
-            md: 'inline-flex',
-          },
-        }}
-        onClick={handleOpen}
-      >
-        {t('auth.login')}
+      <Button color="inherit" onClick={handleOpen}>
+        {t('auth.actions.login')}
       </Button>
 
-      <IconButton
-        sx={{
-          display: {
-            xs: 'inline-flex',
-            md: 'none',
-          },
-          color: 'inherit',
-        }}
-        onClick={handleOpen}
-      >
-        <PersonIcon />
-      </IconButton>
-
-      <Dialog fullWidth maxWidth="xs" open={isOpen} onClose={handleClose}>
+      <Dialog fullWidth maxWidth="xs" open={isOpened} onClose={handleClose}>
         <DialogTitle>
-          <Typography variant="h6">Login</Typography>
+          <Typography variant="h6">{t('auth.login.dialog.title')}</Typography>
 
           <IconButton
             sx={{ position: 'absolute', right: 8, top: 8 }}
@@ -80,12 +58,12 @@ const LoginDialog = () => {
           <Stack spacing={2}>
             <FormControl fullWidth size="small">
               <FormLabel htmlFor="email" sx={{ fontSize: 14, mb: 0.5 }}>
-                Email
+                {t('auth.login.dialog.form.email.label')}
               </FormLabel>
               <OutlinedInput
                 id="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t('auth.login.dialog.form.email.placeholder')}
                 notched={false}
                 sx={{ fontSize: 14 }}
               />
@@ -93,12 +71,12 @@ const LoginDialog = () => {
 
             <FormControl fullWidth size="small">
               <FormLabel htmlFor="password" sx={{ fontSize: 14, mb: 0.5 }}>
-                Password
+                {t('auth.login.dialog.form.password.label')}
               </FormLabel>
               <OutlinedInput
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder={t('auth.login.dialog.form.password.placeholder')}
                 notched={false}
                 sx={{ fontSize: 14 }}
               />
@@ -109,16 +87,16 @@ const LoginDialog = () => {
               variant="contained"
               sx={{ textTransform: 'none' }}
             >
-              Sign in
+              {t('auth.login.dialog.form.submit')}
             </Button>
 
             <Box textAlign="center">
               <Link href="#" variant="body2">
-                Forgot your password?
+                {t('auth.login.dialog.forgot_password')}
               </Link>
             </Box>
 
-            <Divider>or</Divider>
+            <Divider>{t('auth.login.dialog.divider')}</Divider>
 
             <Button
               fullWidth
@@ -137,11 +115,14 @@ const LoginDialog = () => {
                 },
               }}
             >
-              Sign in with Google
+              {t('auth.login.dialog.google_login')}
             </Button>
 
             <Typography variant="body2" align="center">
-              Don’t have an account? <Link href="#">Sign up</Link>
+              <Trans
+                i18nKey="auth.login.dialog.sign_up"
+                components={[<Link href="#" />]}
+              />
             </Typography>
           </Stack>
         </DialogContent>
