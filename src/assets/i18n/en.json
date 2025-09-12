@@ -93,11 +93,19 @@
         "form": {
           "email": {
             "label": "Email",
-            "placeholder": "Enter your email"
+            "placeholder": "Enter your email",
+            "errors": {
+              "required": "Email is required",
+              "format": "Invalid email format"
+            }
           },
           "password": {
             "label": "Password",
-            "placeholder": "Enter your password"
+            "placeholder": "Enter your password",
+            "errors": {
+              "required": "Password is required",
+              "min_length": "Min 8 characters"
+            }
           },
           "submit": "Sign in"
         },

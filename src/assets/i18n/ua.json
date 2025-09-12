@@ -93,11 +93,19 @@
         "form": {
           "email": {
             "label": "Email",
-            "placeholder": "Введіть email"
+            "placeholder": "Введіть email",
+            "errors": {
+              "required": "Email є обов'язковим",
+              "format": "Невірним формат"
+            }
           },
           "password": {
             "label": "Пароль",
-            "placeholder": "Введіть пароль"
+            "placeholder": "Введіть пароль",
+            "errors": {
+              "required": "Пароль є обов'язковим",
+              "min_length": "Пароль має містити мінімум 8 символів"
+            }
           },
           "submit": "Увійти"
         },
