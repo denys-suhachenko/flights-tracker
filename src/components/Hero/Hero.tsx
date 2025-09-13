@@ -4,8 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import Navbar from '@app/components/Navbar/Navbar';
 
-import HeroImage from '@app/assets/images/hero.png';
-
 import SearchBar from './components/SearchBar';
 import styles from './Hero.styles';
 import { useRef } from 'react';
@@ -18,23 +16,9 @@ const Hero = () => {
     <Box sx={(theme) => styles.wrapper(theme)}>
       <Navbar pages={['home', 'about']} scrollAnchorRef={anchorRef} />
 
-      <Box
-        ref={anchorRef}
-        sx={{
-          position: 'absolute',
-          top: 0,
-          height: 1,
-          width: 1,
-          pointerEvents: 'none',
-        }}
-      />
+      <Box ref={anchorRef} sx={styles.navbarAnchor} />
 
-      <Box
-        sx={{
-          ...styles.mainHeader,
-          backgroundImage: `url(${HeroImage})`,
-        }}
-      >
+      <Box sx={styles.mainHeader}>
         <Box sx={styles.overlay} />
 
         <Container sx={styles.container}>

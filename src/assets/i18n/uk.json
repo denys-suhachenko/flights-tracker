@@ -22,6 +22,16 @@
   },
   "pages": {
     "home": {
+      "sort": {
+        "prefix": "Sort by:",
+        "items": {
+          "default": "Default",
+          "flight_duration": "Flight duration",
+          "distance": "Відстань",
+          "deparute_date": "Departure date",
+          "arrival_date": "Arrival date"
+        }
+      },
       "filter": {
         "title": "Фільтр",
         "airports": {
@@ -44,8 +54,11 @@
           "range": "Обрано: {{from}} - {{to}}"
         },
         "actions": {
-          "submit": "Застосувати"
+          "apply": "Застосувати"
         }
+      },
+      "list": {
+        "empty": "Немає рейсів"
       }
     },
     "not_found": {

@@ -251,7 +251,7 @@ const Filter = () => {
           mt: 2,
         }}
       >
-        {t('pages.home.filter.actions.submit')}
+        {t('pages.home.filter.actions.apply')}
       </Button>
     </Paper>
   );

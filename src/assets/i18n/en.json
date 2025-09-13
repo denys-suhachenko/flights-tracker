@@ -22,8 +22,20 @@
   },
   "pages": {
     "home": {
+      "sort": {
+        "prefix": "Sort by:",
+        "items": {
+          "default": "Default",
+          "flight_duration": "Flight duration",
+          "distance": "Distance",
+          "deparute_date": "Departure date",
+          "arrival_date": "Arrival date"
+        }
+      },
       "filter": {
         "title": "Filter",
+        "from": "From",
+        "to": "To",
         "airports": {
           "title": "Airports"
         },
@@ -44,8 +56,11 @@
           "range": "Selected: {{from}} - {{to}}"
         },
         "actions": {
-          "submit": "Submit"
+          "apply": "Apply"
         }
+      },
+      "list": {
+        "empty": "List is empty"
       }
     },
     "not_found": {
