@@ -1,8 +1,10 @@
 import type { Theme } from '@mui/material';
 
+import HeroImage from '@app/assets/images/hero.png';
+
 const styles = {
   mainHeader: {
-    backgroundImage: `url('https://plus.unsplash.com/premium_photo-1733302811464-5218db3c0d96?q=80&w=2070')`,
+    backgroundImage: `url(${HeroImage})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
@@ -23,6 +25,13 @@ const styles = {
       boxShadow: theme.shadows[4],
     },
   }),
+  navbarAnchor: {
+    position: 'absolute',
+    top: 0,
+    height: 1,
+    width: 1,
+    pointerEvents: 'none',
+  },
   overlay: {
     position: 'absolute',
     inset: 0,
