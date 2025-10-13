@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Alert,
@@ -13,8 +13,8 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
-import type { Flight } from '@app/types/flight';
 import flightsService from '@app/services/flightsService';
 import FlightTrackingCard from '@app/components/FlightTrackingCard/FlightTrackingCard';
 
@@ -26,44 +26,45 @@ const sortVariants = [
   'default',
   'flight_duration',
   'distance',
-  'deparute_date',
+  'departute_date',
   'arrival_date',
-];
+] as const;
+
+type SortVariant = (typeof sortVariants)[number];
 
 const FlightsList = () => {
   const { t } = useTranslation();
   const isDesktop = useMediaQuery((theme) => theme.breakpoints.up('sm'));
 
-  const [count, setCount] = useState(0);
-  const [flights, setFlights] = useState<Flight[]>([]);
-
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState('default');
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string>('');
+  const [order, setOrder] = useState<SortVariant>('default');
   const [isOpenedSnackbar, setIsOpenedSnackbar] = useState(false);
 
-  const pageCount = Math.ceil(count / DEFAULT_PAGE_SIZE);
+  const params = useMemo(
+    () => ({
+      page,
+      pageSize: DEFAULT_PAGE_SIZE,
+      order,
+    }),
+    [page, order]
+  );
 
-  const fetchFlights = async (page: number) => {
-    setIsLoading(true);
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['flights', params],
+    queryFn: ({ signal }) =>
+      flightsService.getFlights(params.page, params.pageSize, params.order, {
+        signal,
+      }),
+    placeholderData: keepPreviousData,
+  });
 
-    try {
-      const response = await flightsService.getFlights(page, DEFAULT_PAGE_SIZE);
-      setFlights(response.results);
-      setCount(response.count);
-    } catch (error: any) {
-      setError(error.message);
-      setIsOpenedSnackbar(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const pageCount = data?.count ? Math.ceil(data.count / DEFAULT_PAGE_SIZE) : 0;
 
   useEffect(() => {
-    fetchFlights(page);
-  }, [page]);
+    if (isError) {
+      setIsOpenedSnackbar(true);
+    }
+  }, [isError]);
 
   return (
     <>
@@ -99,8 +100,11 @@ const FlightsList = () => {
               borderBottomWidth: 1,
             },
           }}
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
+          value={order}
+          onChange={(e) => {
+            setPage(1);
+            setOrder(e.target.value);
+          }}
         >
           {sortVariants.map((value) => (
             <MenuItem key={value} value={value}>
@@ -116,21 +120,23 @@ const FlightsList = () => {
         </Box>
       ) : (
         <Stack spacing={3}>
-          {flights?.length ? (
-            flights.map((flight) => (
+          {data?.results ? (
+            data.results.map((flight) => (
               <FlightTrackingCard key={flight.id} flightInfo={flight} />
             ))
           ) : (
-            <Paper>{t('pages.home.empty')}</Paper>
+            <Paper sx={{ p: 2 }}>{t('pages.home.list.empty')}</Paper>
           )}
 
-          <Pagination
-            count={pageCount}
-            page={page}
-            color="primary"
-            sx={{ display: 'flex', justifyContent: 'center' }}
-            onChange={(_, value) => setPage(value)}
-          />
+          {pageCount > 1 && (
+            <Pagination
+              count={pageCount}
+              page={page}
+              color="primary"
+              sx={{ display: 'flex', justifyContent: 'center' }}
+              onChange={(_, value) => setPage(value)}
+            />
+          )}
         </Stack>
       )}
 
@@ -146,7 +152,7 @@ const FlightsList = () => {
           variant="filled"
           sx={{ width: '100%' }}
         >
-          {error}
+          {error instanceof Error ? error.message : t('common.fetch.error')}
         </Alert>
       </Snackbar>
     </>

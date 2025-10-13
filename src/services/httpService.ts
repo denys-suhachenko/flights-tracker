@@ -1,10 +1,15 @@
 import axios from 'axios';
+import { QueryClient, type QueryFunctionContext } from '@tanstack/react-query';
 
 export interface ApiListResponse<T = any> {
   count: number;
   next: string | null;
   previous: string | null;
   results: T[];
+}
+
+export interface QueryOptions {
+  signal?: AbortSignal;
 }
 
 const setAuthToken = (token: string) => {
@@ -32,5 +37,7 @@ axiosInstance.interceptors.request.use((config) => {
 
   return config;
 });
+
+export const queryClient = new QueryClient();
 
 export default axiosInstance;

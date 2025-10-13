@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState, type RefObject } from 'react';
+import { useEffect, useState, type RefObject } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { AppBar, Box, Button, Container, Toolbar } from '@mui/material';
 
+import { useAuthentication } from '@app/providers/AuthProvider';
 import NavbarWhiteLogo from '@app/assets/navbar-logo-white.svg';
 import NavbarBlackLogo from '@app/assets/navbar-logo-black.svg';
 
 import LanguageSwitcher from './components/LanguageSwitcher';
-import { useAuthentication } from '@app/providers/AuthProvider';
 import LoginDialog from '../Auth/dialogs/LoginDialog/LoginDialog';
 import MobileMenu from './components/MobileMenu';
 

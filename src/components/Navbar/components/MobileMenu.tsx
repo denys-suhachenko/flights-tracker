@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { t } from 'i18next';
+import { Link } from 'react-router-dom';
 
 interface MobileMenuProps {
   pages?: string[];
@@ -37,7 +38,12 @@ const MobileMenu = ({ pages }: MobileMenuProps) => {
         onClose={() => setAnchorEl(null)}
       >
         {pages?.map((page) => (
-          <MenuItem key={page} onClick={() => setAnchorEl(null)}>
+          <MenuItem
+            key={page}
+            component={Link}
+            to={page === 'home' ? '/' : `/${page}`}
+            onClick={() => setAnchorEl(null)}
+          >
             {t(`navbar.items.${page}`)}
           </MenuItem>
         ))}

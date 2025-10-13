@@ -77,36 +77,52 @@ const FlightTrackingCard = ({ flightInfo }: FlightTrackingCardProps) => {
           </Stack>
         </Stack>
 
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          spacing={2}
-          sx={{ width: '100%', py: 2 }}
-        >
-          <Box sx={{ textAlign: 'left' }}>
-            <Typography variant="body2" mb={0.5}>
-              {`${t('components.flight_tracking_card.departure')}: ${formatTime(flightInfo.departure_time)}`}
+        <Stack spacing={0.5} sx={{ width: '100%', py: 1 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Typography variant="body2">
+              {formatTime(flightInfo.departure_time)}
             </Typography>
 
+            <Typography variant="body2">
+              {formatTime(flightInfo.arrival_time)}
+            </Typography>
+          </Box>
+
+          <Box
+            display={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
             <Typography variant="h5" fontWeight={600}>
               {flightInfo.departure_airport.iata}
             </Typography>
 
-            <Typography variant="body2">
-              {`${flightInfo.departure_airport.city} - ${flightInfo.departure_airport.country}`}
-            </Typography>
-          </Box>
-
-          <FlightProgressLine flightInfo={flightInfo} />
-
-          <Box sx={{ textAlign: 'right' }}>
-            <Typography variant="body2" mb={0.5}>
-              {`${t('components.flight_tracking_card.arrival')}: ${formatTime(flightInfo.arrival_time)}`}
-            </Typography>
+            <Box sx={{ flexGrow: 1, px: 2 }}>
+              <FlightProgressLine flightInfo={flightInfo} />
+            </Box>
 
             <Typography variant="h5" fontWeight={600}>
               {flightInfo.arrival_airport.iata}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Typography variant="body2">
+              {`${flightInfo.departure_airport.city} - ${flightInfo.departure_airport.country}`}
             </Typography>
 
             <Typography variant="body2">

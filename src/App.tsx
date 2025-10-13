@@ -9,15 +9,18 @@ import '@fontsource/roboto/700.css';
 import AppRoutes from './routes';
 import { AuthProvider } from './providers/AuthProvider';
 import { theme } from './styles/theme';
+import ReactQueryProvider from './providers/ReactQueryProvider';
 
 const App = () => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
+        <ReactQueryProvider>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </ReactQueryProvider>
       </ThemeProvider>
     </LocalizationProvider>
   );

@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { FlightStatus, type Flight } from '@app/types/flight';
 
 import styles from './FlightProgressLine.styles';
+import { blueGrey } from '@mui/material/colors';
 
 interface FlightProgressLineProps {
   flightInfo: Flight;
@@ -27,7 +28,15 @@ const FlightProgressLine = ({ flightInfo }: FlightProgressLineProps) => {
         position: 'relative',
       }}
     >
-      <Box sx={styles.destinationDot} />
+      <Box
+        sx={{
+          ...styles.destinationDot,
+          bgcolor:
+            flightInfo.status === FlightStatus.CANCELLED
+              ? 'error.main'
+              : blueGrey[700],
+        }}
+      />
 
       <Box sx={[styles.solidLine(`${progress * 100}%`)]}></Box>
 
@@ -37,7 +46,15 @@ const FlightProgressLine = ({ flightInfo }: FlightProgressLineProps) => {
 
       <Box sx={[styles.dashedLine(`${(1 - progress) * 100}%`)]}></Box>
 
-      <Box sx={styles.destinationDot} />
+      <Box
+        sx={{
+          ...styles.destinationDot,
+          bgcolor:
+            flightInfo.status === FlightStatus.ARRIVED
+              ? 'success.main'
+              : blueGrey[700],
+        }}
+      />
     </Stack>
   );
 };

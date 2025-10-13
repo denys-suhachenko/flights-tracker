@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   InputLabel,
@@ -21,6 +21,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import flightsService from '@app/services/flightsService';
 import { type Airline, type Airport, FlightStatus } from '@app/types/flight';
+import { useQueries } from '@tanstack/react-query';
 
 const statuses = [
   FlightStatus.SCHEDULED,
@@ -33,26 +34,26 @@ const statuses = [
 const Filter = () => {
   const { t } = useTranslation();
 
-  const [airports, setAirports] = useState<Airport[]>([]);
-  const [selectedAirports, setSelectedAirports] = useState<Airport[]>([]);
+  const [airports, airlines] = useQueries({
+    queries: [
+      {
+        queryKey: ['airports', 'list'],
+        queryFn: ({ signal }) => flightsService.getAirports({ signal }),
+        initialData: [],
+      },
+      {
+        queryKey: ['airlines', 'list'],
+        queryFn: ({ signal }) => flightsService.getAirlines({ signal }),
+        initialData: [],
+      },
+    ],
+  });
 
-  const [airlines, setAirlines] = useState<Airline[]>([]);
+  const [selectedAirports, setSelectedAirports] = useState<Airport[]>([]);
   const [selectedAirlines, setSelectedAirlines] = useState<Airline[]>([]);
 
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
   const [passengersCount, setPassengersCount] = useState<number[]>([50, 250]);
-
-  useEffect(() => {
-    flightsService.getAirports().then((data) => {
-      setAirports(data);
-    });
-  }, []);
-
-  useEffect(() => {
-    flightsService.getAirlines().then((data) => {
-      setAirlines(data);
-    });
-  }, []);
 
   const handleChangeAirports = (event: SelectChangeEvent<Airport[]>) => {
     const value = event.target.value;
@@ -60,7 +61,7 @@ const Filter = () => {
       typeof value === 'string'
         ? (value
             .split(',')
-            .map((id) => airports.find((airport) => airport.id === Number(id)))
+            .map((id) => airports.data.find((airport) => airport.id === Number(id)))
             .filter((airport) => airport !== undefined) as Airport[])
         : value
     );
@@ -72,7 +73,7 @@ const Filter = () => {
       typeof value === 'string'
         ? (value
             .split(',')
-            .map((id) => airlines.find((airline) => airline.id === Number(id)))
+            .map((id) => airlines.data.find((airline) => airline.id === Number(id)))
             .filter((airline) => airline !== undefined) as Airline[])
         : value
     );
@@ -167,7 +168,7 @@ const Filter = () => {
             }
             label={t('pages.home.filter.airports.title')}
           >
-            {airports.map((option) => (
+            {airports.data.map((option) => (
               <MenuItem key={option.id} value={option.id}>
                 <Checkbox
                   checked={
@@ -195,7 +196,7 @@ const Filter = () => {
             }
             label={t('pages.home.filter.airlines.title')}
           >
-            {airlines.map((option) => (
+            {airlines.data.map((option) => (
               <MenuItem key={option.id} value={option.id}>
                 <Checkbox
                   checked={

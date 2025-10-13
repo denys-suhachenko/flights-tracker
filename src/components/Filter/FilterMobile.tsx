@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Typography,
@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { useQueries } from '@tanstack/react-query';
 
 import { FlightStatus, type Airline, type Airport } from '@app/types/flight';
 import flightsService from '@app/services/flightsService';
@@ -32,8 +33,21 @@ const statuses = [
 const FilterMobile = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [airports, setAirports] = useState<Airport[]>([]);
-  const [airlines, setAirlines] = useState<Airline[]>([]);
+
+  const [airports, airlines] = useQueries({
+    queries: [
+      {
+        queryKey: ['airport', 'list'],
+        queryFn: ({ signal }) => flightsService.getAirports({ signal }),
+        initialData: [],
+      },
+      {
+        queryKey: ['airlines', 'list'],
+        queryFn: ({ signal }) => flightsService.getAirlines({ signal }),
+        initialData: [],
+      },
+    ],
+  });
 
   const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
   const [selectedAirlines, setSelectedAirlnes] = useState<string[]>([]);
@@ -42,24 +56,12 @@ const FilterMobile = () => {
 
   const airlinesByIata = useMemo(
     () =>
-      Object.fromEntries(airlines.map((val) => [val.iata, val])) as Record<
+      Object.fromEntries(airlines.data.map((val) => [val.iata, val])) as Record<
         string,
         Airline
       >,
     [airlines]
   );
-
-  useEffect(() => {
-    flightsService.getAirports().then((data) => {
-      setAirports(data);
-    });
-  }, []);
-
-  useEffect(() => {
-    flightsService.getAirlines().then((data) => {
-      setAirlines(data);
-    });
-  }, []);
 
   const handleChangeStatuses = (event: SelectChangeEvent<string[]>) => {
     const value = event.target.value;
@@ -164,15 +166,15 @@ const FilterMobile = () => {
             </FormControl>
 
             {/* Departure airport select */}
-            <FormControl fullWidth size="small">
+            <FormControl fullWidth size="small" disabled={airports.isLoading}>
               <InputLabel>{t('pages.home.filter.from')}</InputLabel>
               <Select
                 label={t('pages.home.filter.from')}
                 value={departure}
                 onChange={(e) => setDeparture(e.target.value)}
               >
-                {airports.map((option) => (
-                  <MenuItem key={option.iata} value={option.iata}>
+                {airlines.data.map((option) => (
+                  <MenuItem key={option.id} value={option.iata}>
                     {option.name}
                   </MenuItem>
                 ))}
@@ -180,14 +182,14 @@ const FilterMobile = () => {
             </FormControl>
 
             {/* Arrival airport select */}
-            <FormControl fullWidth size="small">
+            <FormControl fullWidth size="small" disabled={airports.isLoading}>
               <InputLabel>{t('pages.home.filter.to')}</InputLabel>
               <Select
                 label={t('pages.home.filter.to')}
                 value={arrival}
                 onChange={(e) => setArrival(e.target.value)}
               >
-                {airports.map((option) => (
+                {airports.data.map((option) => (
                   <MenuItem key={option.id} value={option.iata}>
                     {option.name}
                   </MenuItem>
@@ -196,7 +198,7 @@ const FilterMobile = () => {
             </FormControl>
 
             {/* Airlines multiselect */}
-            <FormControl fullWidth size="small">
+            <FormControl fullWidth size="small" disabled={airlines.isLoading}>
               <InputLabel>{t('pages.home.filter.airlines.title')}</InputLabel>
               <Select
                 multiple
@@ -205,7 +207,7 @@ const FilterMobile = () => {
                   selected.map((iata) => (
                     <Chip
                       key={iata}
-                      label={airlinesByIata[iata].name ?? iata}
+                      label={airlinesByIata[iata]?.name ?? iata}
                       size="small"
                     />
                   ))
@@ -213,7 +215,7 @@ const FilterMobile = () => {
                 value={selectedAirlines}
                 onChange={handleChangeAirlines}
               >
-                {airlines.map((option) => (
+                {airlines.data.map((option) => (
                   <MenuItem key={option.id} value={option.iata}>
                     <Checkbox
                       checked={selectedAirlines.includes(option.iata)}
